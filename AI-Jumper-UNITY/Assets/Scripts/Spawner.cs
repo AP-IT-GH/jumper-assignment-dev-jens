@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour
 {
     public GameObject obstacle;
     public GameObject point;
-    private float interval = 3.5f;
+    private float interval = 4f;
     private float timer = 0f;
     
     void Update()
