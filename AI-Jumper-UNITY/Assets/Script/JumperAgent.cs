@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.MLAgents;
@@ -9,7 +10,13 @@ public class JumperAgent : Agent
 {
     public float jumpForce = 10f;
     
-    Rigidbody rBody;
+    Rigidbody rb = null;
+
+    public override void Initialize()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+    
     public override void OnEpisodeBegin()
     {
 
@@ -22,14 +29,17 @@ public class JumperAgent : Agent
     
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
-        rBody.AddForce(0, actionBuffers.DiscreteActions[0] * 100, 0);
+        var actions = actionBuffers.DiscreteActions;
+        rb.AddForce(0, actions[0] * jumpForce, 0);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
-    {
-        var discreteActionsout = actionsOut.DiscreteActions;
-        if (Input.GetKey(KeyCode.Space) == true)
-            discreteActionsout[0] = 1;
+    { 
+        var discreteActionsOut = actionsOut.DiscreteActions;
+        discreteActionsOut[0] = 0;
+        
+        if (Input.GetKey(KeyCode.Space))
+            discreteActionsOut[0] = 1;
     }
  
 }
