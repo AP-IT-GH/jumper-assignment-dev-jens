@@ -32,9 +32,5 @@ public class Spawner : MonoBehaviour
             GameObject.Instantiate(point);
         else
             GameObject.Instantiate(obstacle);
-
-
-
-
     }
 }
