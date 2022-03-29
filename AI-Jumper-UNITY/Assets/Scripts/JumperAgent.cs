@@ -10,7 +10,8 @@ public class JumperAgent : Agent
 {
     public float jumpForce = 10f;
     
-    Rigidbody rb = null;
+    private Rigidbody rb = null;
+    private bool hasJumped = false;
 
     public override void Initialize()
     {
@@ -38,8 +39,10 @@ public class JumperAgent : Agent
         var discreteActionsOut = actionsOut.DiscreteActions;
         discreteActionsOut[0] = 0;
         
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && !hasJumped) {
             discreteActionsOut[0] = 1;
+            hasJumped = true;
+        }
     }
  
 }
