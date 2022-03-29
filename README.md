@@ -1,10 +1,80 @@
 Eerst maken we een nieuw Unity project aan, we kiezen gewoon 3D als starter project.
-
 Via de package manager installeren we de ML-Agents unity package:
 ![image](https://user-images.githubusercontent.com/13435783/160552758-033d2e0c-1559-4f4f-a318-6c7c9fe78c41.png)
+
+<br>
+<br>
 
 Nu maken we een simpele scene, we hebben een Agent nodig (blauwe cubus in ons geval), een obstakel (rode balk), een platform,
 en een item voor bonus punten (groene balk).
 Deze items steken we in een leeg gameObject, trainingArea, waar onze agent zal trainen.
 ![image](https://user-images.githubusercontent.com/13435783/160553873-bcf83c9d-dcb4-4160-8a12-abcbca9fa36f.png)
+
+<br>
+<br>
+
+Vervolgens voegen we paar nodige components toe aan de Agent:
+![image](https://user-images.githubusercontent.com/13435783/160559624-e773261b-2fb4-403d-aa8b-c4d907adade3.png)
+![image](https://user-images.githubusercontent.com/13435783/160559637-23b073c1-3bd7-4534-a32b-306984d64e90.png)
+![image](https://user-images.githubusercontent.com/13435783/160559661-6f9346ab-4933-41e0-8a8f-016f7cee94ef.png)
+
+<br>
+<br>
+
+Vervolgens maken we een nieuwe script aan voor onze Agent, deze laten we overerven door Agent en overriden we volgende functies:
+Ook maken we al een variable (public, we zetten dit in de editor) voor de jumpForce. Ook refereren we naar de rigidbody van de agent, aangezien we hiermee gaan springen.
+![image](https://user-images.githubusercontent.com/13435783/160561196-64d14f3c-6876-4539-85e2-59d0b69d3142.png)
+
+<br>
+<br>
+
+Nu gaan we de agent laten springen.
+Creeer een empty gameobject met de agent als parent, dit is de groundCheck, plaats hem aan de voeten van de agent.
+![image](https://user-images.githubusercontent.com/13435783/160573060-3f972a53-d0db-413f-81d9-2f5c8951c216.png)
+
+<br>
+<br>
+
+Vervolgens updaten we het Agent script:
+We maken variables die we vanuit de editor gaan zetten: LayerMask voor de grond layer, en groundCheck voor het nieuwe aangemaakte groundCheck object van vorige stap.
+Ook hebben we een isGrounded variable nodig, deze gaat true zijn als de speler op de grond is, en deze dus mag springen.
+We voeren een CheckSphere uit om te checken of de groundCheck object binnen een bepaalde radius de grond raakt, en dus de speler op de grond is.
+![image](https://user-images.githubusercontent.com/13435783/160574436-e8cd299f-7fc7-4d18-9d7a-6e1814f83efd.png)
+
+<br>
+<br>
+
+Nu passen we OnActionReceived en Heuristic functions aan, zodat we met het keyboard al kunnen testen.
+In de OnActionsReceived laten we de agent jumpen als de enige discreteAction op 1 staat, als deze op 0 staat doet de agent niets, ook checken we of de agent zich wel op de grond bevindt.
+In de Heuristic zetten we deze enige discrete action op 1 als we op spatie drukken, anders op 0.
+![image](https://user-images.githubusercontent.com/13435783/160574742-4db1259a-92b0-48a1-be77-3bbeeebea567.png)
+
+Hier onze values van de AgentScript in de editor
+![image](https://user-images.githubusercontent.com/13435783/160577871-ecf3390f-1a2d-4e95-b549-9f6810186a22.png)
+
+In de rigidBody zorgen we dat enkel de y positie niet gelocked is, zo zijn we er zeker van dat de agent niet gaat bewegen naar links of rechts, of gaat roteren zonder we dat willen.
+![image](https://user-images.githubusercontent.com/13435783/160577005-2f4318b9-2819-4f6f-914a-4bf52b14845e.png)
+
+<br>
+<br>
+
+Volgende wat we gaan doen is het spawnen van de Obstacles en Points.
+We maken prefabs van de Obstacles en Points
+Vervolgens maken we een nieuw script voor het spawnen, genoemd "Spawner":
+In de variabele interval houden we bij om hoeveel seconden we een object willen spawnen.
+Als de timer dan op 0 komt, reset hij en spawnt hij een object.
+![image](https://user-images.githubusercontent.com/13435783/160581218-811b30b4-91b1-43c8-b1e5-563f4fa39ba8.png)
+
+Op de spawner object zetten we het script, en in de editor slepen we de 2 prefabs in de fields:
+![image](https://user-images.githubusercontent.com/13435783/160581515-afc44e8e-9634-42cc-9c6b-b471f5ac6df3.png)
+
+<br>
+<br>
+
+Momenteel spawnt de spawner objecten, maar deze blijven gewoon staan, in de volgende stap zullen we ze laten bewegen.
+Maak een nieuwe script aan voor de Obstacles en Points, we noemen hem ObjectMoverm, we zetten dit script ook direct op de agent.
+Eerst maken we een public variable aan voor de speed, zodat we deze in de editor kunnen toekennen.
+In de update method laten we elke frame de objecten in de negatieve z direction bewegen.
+Nu moeten we ervoor zorgen dat de objecten despawnen, we doen een if om te checken of de z coordinaat kleiner is dan -10, en dan Destroyen we het gameobject.
+![image](https://user-images.githubusercontent.com/13435783/160584524-ccf04860-ca99-4f62-9d65-b2bc879e21e2.png)
 
