@@ -29,7 +29,10 @@ public class JumperAgent : Agent
         }
 
         if (other.CompareTag("Point"))
+        {
             AddReward(1f);
+            Destroy(other.gameObject);
+        }
     }
 
     public override void Initialize()
@@ -46,7 +49,7 @@ public class JumperAgent : Agent
             Destroy(point);
 
         // Generate a new speed for the obstacles
-        objectSpawner.ObjectSpeed = Random.Range(1f, 3f);
+        objectSpawner.ObjectSpeed = Random.Range(3f, 6f);
     }
     
     public override void OnActionReceived(ActionBuffers actionBuffers)
