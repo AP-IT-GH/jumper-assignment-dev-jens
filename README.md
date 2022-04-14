@@ -108,3 +108,12 @@ We veranderen dus even de ObjectSpeed die aan de Spawner wordt meegegeven in de 
 De points worden wel opgeraapt, en er wordt wel rewards gegeven, maar ze blijven nog in de scene nadat de agent deze opraapt.
 Om dit te veranderen kunnen we de point gameObject gewoon verwijderen in de OnTrigger method.
 ![image](https://user-images.githubusercontent.com/13435783/163399945-fee8439f-e11e-4771-8b63-e8f5d940109e.png)
+
+<br>
+
+Wanneer we de agent trainen gaat hij op de duur niet meer sterven, het probleem is dat hij zo gewoon wordt aan de speed die op dat moment gebruikt wordt, dat hij een andere speed niet gaat kunnen.
+Als oplossing kunnen we de episode ook beindigen nadat de agent x aantal points heeft verzameld.
+![image](https://user-images.githubusercontent.com/13435783/163411545-f864db22-78a1-44af-aff6-6c060d68e3f1.png)
+Ook hebben we nog een private variable nodig voor points.
+![image](https://user-images.githubusercontent.com/13435783/163411734-0a22846d-5b11-4b9b-b643-fd152fae8f41.png)
+
