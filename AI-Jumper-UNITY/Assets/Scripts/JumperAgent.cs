@@ -9,11 +9,11 @@ using UnityEngine.VFX;
 
 public class JumperAgent : Agent
 {
-    public float jumpForce = 100f;
-    
+    [SerializeField] private float jumpForce = 100f;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] public Transform groundCheck;
+
     private Rigidbody rb;
-    public LayerMask groundLayer;
-    public Transform groundCheck;
 
     private bool isGrounded
     {
@@ -21,7 +21,6 @@ public class JumperAgent : Agent
         {
             return Physics.CheckSphere(groundCheck.position, 0.1f, groundLayer);
         }
-        
     }
 
     public override void Initialize()
@@ -45,8 +44,6 @@ public class JumperAgent : Agent
         if (actions[0] == 1 && isGrounded)
         {
             rb.AddForce(0, jumpForce * 100, 0);
-            print("jumpoing actiop");
-
         }
     }
 
@@ -57,7 +54,6 @@ public class JumperAgent : Agent
         
         if (Input.GetKey(KeyCode.Space)) {
             discreteActionsOut[0] = 1;
-            print("press jump");
         }
     }
 }
