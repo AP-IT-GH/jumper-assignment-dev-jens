@@ -72,9 +72,39 @@ Op de spawner object zetten we het script, en in de editor slepen we de 2 prefab
 <br>
 
 Momenteel spawnt de spawner objecten, maar deze blijven gewoon staan, in de volgende stap zullen we ze laten bewegen.
-Maak een nieuwe script aan voor de Obstacles en Points, we noemen hem ObjectMoverm, we zetten dit script ook direct op de agent.
-Eerst maken we een public variable aan voor de speed, zodat we deze in de editor kunnen toekennen.
+Maak een nieuwe script aan voor de Obstacles en Points, we noemen hem ObjectMover, we zetten dit script ook direct op de prefabs van de obstacles en points.
+Eerst maken we een property aan voor de speed, zodat we deze kunnen toekennen wanneer het object gespawned wordt.
 In de update method laten we elke frame de objecten in de negatieve z direction bewegen.
 Nu moeten we ervoor zorgen dat de objecten despawnen, we doen een if om te checken of de z coordinaat kleiner is dan -10, en dan Destroyen we het gameobject.
-![image](https://user-images.githubusercontent.com/13435783/160584524-ccf04860-ca99-4f62-9d65-b2bc879e21e2.png)
+![image](https://user-images.githubusercontent.com/13435783/163397499-ff8cf412-e1f0-4339-a439-7cd5f25ee92a.png)
 
+<br>
+<br>
+
+In de spawn method van de Spawner klasse zorgen we ervoor dat we de ObjectSpeed van het nieuwe gespawnde object correct setten.
+We kennen het toe aan "ObjectSpeed" van de Spawner zelf, deze property gaan we aanpassen bij een nieuwe episode.
+![image](https://user-images.githubusercontent.com/13435783/163398107-99008fcd-8a37-4278-b1d6-14e5f4735031.png)
+![image](https://user-images.githubusercontent.com/13435783/163398092-8af44bdf-03d5-4983-9f2f-80f24cab357f.png)
+
+<br>
+<br>
+
+Nu werkt onze applicatie wel met heuristic, maar moeten we er nog voor zorgen dat de agent zelf kan trainen.
+In de OnEpisodeBegin() doen we het volgende: Alle obstacles die nog in de scene zijn destroyen, de speed van de spawner een nieuwe random gegenereerde waarde meegeven.
+We maken ook een OnTriggerEnter aan voor te checken of we de obstacles hebben geraakt. We checken nog snel via tag of het een obstacle of een point is, en geven de juiste rewards dan mee.
+![image](https://user-images.githubusercontent.com/13435783/163398561-8ca2a182-8939-45f0-9fad-3b440f77c8bc.png)
+![image](https://user-images.githubusercontent.com/13435783/163398590-b8454ae2-10fa-42c0-a1cd-8b89a5a50a61.png)
+
+<br>
+<br>
+
+### Bugs
+Na even trainen heb ik enkele bugs gevonden, eerst en vooral is de ObjectSpeed veel te laag, de agent kan er nooit over springen.
+We veranderen dus even de ObjectSpeed die aan de Spawner wordt meegegeven in de OnEpisodeBegin()
+![image](https://user-images.githubusercontent.com/13435783/163399627-441c41a7-d88f-4660-81aa-43439e96205e.png)
+
+<br> 
+
+De points worden wel opgeraapt, en er wordt wel rewards gegeven, maar ze blijven nog in de scene nadat de agent deze opraapt.
+Om dit te veranderen kunnen we de point gameObject gewoon verwijderen in de OnTrigger method.
+![image](https://user-images.githubusercontent.com/13435783/163399945-fee8439f-e11e-4771-8b63-e8f5d940109e.png)
