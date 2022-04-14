@@ -20,6 +20,18 @@ public class JumperAgent : Agent
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Obstacle"))
+        {
+            SetReward(-10f);
+            EndEpisode();
+        }
+
+        if (other.CompareTag("Point"))
+            AddReward(1f);
+    }
+
     public override void Initialize()
     {
         rb = GetComponent<Rigidbody>();
@@ -35,11 +47,6 @@ public class JumperAgent : Agent
 
         // Generate a new speed for the obstacles
         objectSpawner.ObjectSpeed = Random.Range(1f, 3f);
-    }
-
-    public override void CollectObservations(VectorSensor sensor)
-    {
-
     }
     
     public override void OnActionReceived(ActionBuffers actionBuffers)
