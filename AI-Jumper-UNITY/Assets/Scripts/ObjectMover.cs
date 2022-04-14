@@ -2,14 +2,11 @@ using UnityEngine;
 
 public class ObjectMover : MonoBehaviour
 {
-    [SerializeField]
-    private float objectSpeed = 0.1f;
+    public float ObjectSpeed { get; set; }
 
-    private float speedMultiplier = 0.1f;
-
-    void Update()
+    private void FixedUpdate()
     {
-        transform.position = new Vector3(transform.position.x,transform.position.y,transform.position.z - (objectSpeed * speedMultiplier));
+        transform.position = new Vector3(transform.position.x,transform.position.y,transform.position.z - (ObjectSpeed * Time.deltaTime));
 
         if (transform.position.z <= -10)
         {

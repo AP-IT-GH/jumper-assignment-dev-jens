@@ -7,7 +7,8 @@ public class JumperAgent : Agent
 {
     [SerializeField] private float jumpForce = 100f;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] public Transform groundCheck;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private Spawner objectSpawner;
 
     private Rigidbody rb;
 
@@ -26,7 +27,14 @@ public class JumperAgent : Agent
     
     public override void OnEpisodeBegin()
     {
+        // Destroy all obstacles still in the game
+        foreach (var obstacle in GameObject.FindGameObjectsWithTag("Obstacle"))
+            Destroy(obstacle);
+        foreach (var point in GameObject.FindGameObjectsWithTag("Point"))
+            Destroy(point);
 
+        // Generate a new speed for the obstacles
+        objectSpawner.ObjectSpeed = Random.Range(1f, 3f);
     }
 
     public override void CollectObservations(VectorSensor sensor)

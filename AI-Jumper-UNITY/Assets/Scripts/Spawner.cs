@@ -3,13 +3,15 @@ using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
+    public float ObjectSpeed { get; set; }
+
     [SerializeField] private GameObject obstacle;
     [SerializeField] private GameObject point;
 
     private float interval = 4f;
     private float timer = 0f;
-    
-    void Update()
+
+    private void Update()
     {
         if (timer <= 0)
         {
@@ -23,10 +25,13 @@ public class Spawner : MonoBehaviour
     private void Spawn()
     {
         int ramdomNum = Random.Range(0, 3);
+        GameObject obstaclePrefab = obstacle;
 
         if (ramdomNum == 0)
-            Instantiate(point, transform);
-        else
-            Instantiate(obstacle, transform);
+            obstaclePrefab = point;
+
+        // Set obstacle speed to ObstacleSpeed defined by new episode
+        ObjectMover newObstacleOM = Instantiate(obstaclePrefab, transform).GetComponent<ObjectMover>();
+        newObstacleOM.ObjectSpeed = ObjectSpeed;
     }
 }
