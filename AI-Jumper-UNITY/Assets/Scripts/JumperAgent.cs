@@ -1,11 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.MLAgents;
 using UnityEngine;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
-using UnityEngine.VFX;
 
 public class JumperAgent : Agent
 {

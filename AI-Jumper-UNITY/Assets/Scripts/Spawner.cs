@@ -1,7 +1,6 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private GameObject obstacle;
