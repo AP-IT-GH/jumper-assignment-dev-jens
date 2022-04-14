@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Timers;
-using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject obstacle;
-    public GameObject point;
+    [SerializeField] private GameObject obstacle;
+    [SerializeField] private GameObject point;
+
     private float interval = 4f;
     private float timer = 0f;
     
@@ -27,10 +24,10 @@ public class Spawner : MonoBehaviour
     private void Spawn()
     {
         int ramdomNum = Random.Range(0, 3);
-        
+
         if (ramdomNum == 0)
-            GameObject.Instantiate(point);
+            Instantiate(point, transform);
         else
-            GameObject.Instantiate(obstacle);
+            Instantiate(obstacle, transform);
     }
 }
