@@ -117,3 +117,25 @@ Als oplossing kunnen we de episode ook beindigen nadat de agent x aantal points 
 Ook hebben we nog een private variable nodig voor points.
 ![image](https://user-images.githubusercontent.com/13435783/163411734-0a22846d-5b11-4b9b-b643-fd152fae8f41.png)
 
+<br>
+
+Nu moeten we de agent trainen. Open de anaconda environment waar ml-agents is geinstalleerd, en voer volgende code uit:
+```
+mlagents-learn Agent.yaml
+```
+[a relative link](AI-Jumper-UNITY/Assets/config/Agent.yaml)
+Voor dit voorbeeld heb ik +- 300.000 steps lang getrained, hoe meer hoe accurater de agent natuurlijk.
+
+<br>
+
+Nu dat de agent getrained is, kunnen we het code deel waar de episode stopt na 10 punten, verwijderen:
+![image](https://user-images.githubusercontent.com/13435783/166193275-1eb051c8-85dd-4876-b7be-06aaf0d33182.png)
+
+<br>
+
+## Conclusie
+
+Zie hier video van het getrainde model:
+https://ap.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=2425f69d-1397-4db3-8870-ae89006b12af
+Er zijn nog enkele problemen, de AI van de Agent kan niet elke snelheid die de obstacles heeft aan, soms gaan de obstacles te snel, en soms te traag, dit is iets wat misschien na meer steps zou weggaan.
+
