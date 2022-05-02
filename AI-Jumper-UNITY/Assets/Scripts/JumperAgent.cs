@@ -11,6 +11,7 @@ public class JumperAgent : Agent
     [SerializeField] private Spawner objectSpawner;
 
     private Rigidbody rb;
+    private int points = 0;
 
     private bool isGrounded
     {
@@ -32,6 +33,12 @@ public class JumperAgent : Agent
         {
             AddReward(1f);
             Destroy(other.gameObject);
+
+            points++;
+            Debug.Log(points);
+
+            if (points >= 10)
+                EndEpisode();
         }
     }
 
@@ -50,6 +57,9 @@ public class JumperAgent : Agent
 
         // Generate a new speed for the obstacles
         objectSpawner.ObjectSpeed = Random.Range(3f, 6f);
+
+        // Reset points
+        points = 0;
     }
     
     public override void OnActionReceived(ActionBuffers actionBuffers)
