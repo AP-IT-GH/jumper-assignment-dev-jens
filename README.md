@@ -123,7 +123,7 @@ Nu moeten we de agent trainen. Open de anaconda environment waar ml-agents is ge
 ```
 mlagents-learn Agent.yaml
 ```
-[a relative link](AI-Jumper-UNITY/Assets/config/Agent.yaml)
+[Link naar Agent.yaml file](AI-Jumper-UNITY/Assets/config/Agent.yaml)
 Voor dit voorbeeld heb ik +- 300.000 steps lang getrained, hoe meer hoe accurater de agent natuurlijk.
 
 <br>
