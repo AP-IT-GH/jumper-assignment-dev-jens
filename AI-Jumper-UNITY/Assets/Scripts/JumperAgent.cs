@@ -37,8 +37,8 @@ public class JumperAgent : Agent
             points++;
             Debug.Log(points);
 
-            if (points >= 10)
-                EndEpisode();
+/*            if (points >= 10)
+                EndEpisode();*/
         }
     }
 
